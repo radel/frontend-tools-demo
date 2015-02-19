@@ -16,6 +16,34 @@ module.exports = function(grunt) {
       }
     },
 
+    jshint: {
+        all: ['Gruntfile.js', 'js/custom/*.js']
+      },
+
+    concat: {
+        options: {
+          separator: ';',
+        },
+        dist: {
+          src: [
+          // Using all of your custom js files
+          'js/custom/*.js'
+
+          ],
+          // Concat all the files above into one single file
+          dest: 'js/app.js',
+        },
+      },
+
+    uglify: {
+      dist: {
+        files: {
+          // Shrink the file size by removing spaces
+          'js/app.js': ['js/app.min.js']
+        }
+      }
+    },
+
     connect: {
       all: {
         options:{
@@ -57,7 +85,10 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
-  grunt.registerTask('build', ['sass']);
+  grunt.registerTask('build', ['jshint','concat','uglify','sass']);
   grunt.registerTask('default', ['build','connect','open','watch']);
-}
+};

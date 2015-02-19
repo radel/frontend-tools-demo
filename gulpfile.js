@@ -30,12 +30,12 @@ gulp.task('reload', function() {
 
 // Concatenate & Minify JS
 gulp.task('scripts', function() {
-    gulp.src('./js/*.js')
-        .pipe($.concat('all.js'))
-        // .pipe(gulp.dest('./dist'))
-        // .pipe($.rename('all.min.js'))
-        // .pipe($.uglify())
-        // .pipe(gulp.dest('./dist'))
+    gulp.src('./js/custom/*.js')
+        .pipe($.concat('app.js'))
+         .pipe(gulp.dest('./js'))
+         .pipe($.rename('app.min.js'))
+         .pipe($.uglify())
+         .pipe(gulp.dest('./js'))
         .pipe($.connect.reload());
 });
 
